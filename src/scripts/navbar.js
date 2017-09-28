@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import '../css/navbar.css';
 
-const NavComponent = React.createClass({
-    render: function() {
+class NavComponent extends Component{
+    render() {
         return (
             <nav>
                 <div className="navWide">
@@ -23,8 +23,8 @@ const NavComponent = React.createClass({
                 </div>
             </nav>
         );
-    },
-    burgerToggle: function() {
+    }
+    burgerToggle() {
 		let linksEl = document.querySelector('.narrowLinks');
 		if (linksEl.style.display === 'block') {
 			linksEl.style.display = 'none';
@@ -32,6 +32,6 @@ const NavComponent = React.createClass({
 			linksEl.style.display = 'block';
 		}
 	}
-});
+};
 
 export default NavComponent;

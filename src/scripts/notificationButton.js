@@ -1,36 +1,36 @@
-var React = require('react');
+var React, {Component} = require('react');
 var ReactDOM = require('react-dom');
 var NotificationSystem = require('react-notification-system');
 
-var NotificationButton = React.createClass({
-  _notificationSystem: null,
+class NotificationButton extends Component {
+    constructor (props){
+        super(props);
+        this._addNotification.bind(this);
+    }
 
-  _addNotification: function(event) {
+    _notificationSystem = null
+
+  _addNotification (event) {
     event.preventDefault();
     this._notificationSystem.addNotification({
       message: 'Notification message',
       level: 'info',
       autoDismiss: 3,
       position: 'tc',
-      onAdd: console.log('message created')
     });
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     this._notificationSystem = this.refs.notificationSystem;
-  },
+  }
 
-  render: function() {
-    return (
+  render() {
+      return(
       <div>
         <button onClick={this._addNotification}>Add notification</button>
         <NotificationSystem ref="notificationSystem" />
       </div>
-      );
-  }
-});
+  )}
+};
 
-ReactDOM.render(
-  React.createElement(NotificationButton),
-  document.querySelector('notificationButton')
-);
+export default NotificationButton;
