@@ -1,5 +1,4 @@
 var React, {Component} = require('react');
-var ReactDOM = require('react-dom');
 var NotificationSystem = require('react-notification-system');
 
 class NotificationButton extends Component {
@@ -25,11 +24,11 @@ class NotificationButton extends Component {
   }
 
   render() {
-      return(
-      <div>
-        <button onClick={this._addNotification}>Add notification</button>
-        <NotificationSystem ref="notificationSystem" />
-      </div>
+      return (
+        <div>
+          <button onClick={this._addNotification}>Add notification</button>
+          <NotificationSystem ref="notificationSystem" />
+        </div>
   )}
 };
 

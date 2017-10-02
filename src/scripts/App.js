@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../images/logo.svg';
-import '../css/app.css';
+import '../css/App.css';
 import NavComponent from './navbar';
 import NotificationButton from './notificationButton';
 
