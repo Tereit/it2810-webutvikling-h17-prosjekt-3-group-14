@@ -1,21 +1,41 @@
 import React, {Component} from 'react';
+import NotificationSystem from 'react-notification-system';
 
 class NotificationButton extends Component {
   constructor(props) {
     super(props);
     this.state = {recieveMessage: true};
-    this.message = this.message.bind(this);
+    this.notifications = null;
+
+    //Bindings
     this.handleChange = this.handleChange.bind(this);
     this.getLocalState = this.getLocalState.bind(this);
     this.setLocalState = this.setLocalState.bind(this);
     this.checkTime = this.checkTime.bind(this);
+    this.addNotification = this.addNotification.bind(this);
 
   }
 
   componentDidMount(){
     this.getLocalState();
-    const timeTest = new Date(2017, 10, 3, 11, 3);
-    console.log(this.checkTime(timeTest));
+    this.notifications = this.refs.notifications;
+  }
+
+  addNotification(e){
+    if (this.state.recieveMessage) {
+      e.preventDefault();
+      this.notifications.addNotification({
+        title: 'Notification',
+        message: 'Test',
+        level: 'info',
+        position: 'br',
+        children: (
+          <div>
+            <h2>Test</h2>
+          </div>
+        )
+      });
+    }
   }
 
   getLocalState(){
@@ -35,13 +55,8 @@ class NotificationButton extends Component {
     localStorage.setItem('recieveMessage', state);
   }
 
-  message(){
-    if (this.state.recieveMessage) {
-        window.alert('test');
-    }
-  }
-
   checkTime(notificationTime){
+    //Requires a date object
     var notifDate = notificationTime.getDate();
     var notifMin = notificationTime.getMinutes();
     var notifHours = notificationTime.getHours();
@@ -64,9 +79,7 @@ class NotificationButton extends Component {
     this.setState({
       [name]: value
     });
-
     this.setLocalState(value);
-    this.getLocalState();
   }
 
   render(){
@@ -78,7 +91,8 @@ class NotificationButton extends Component {
         checked={this.state.recieveMessage}
         onChange={this.handleChange} />
         Recieve Messages?<br />
-        <button onClick={this.message}>click me</button>
+        <button onClick={this.addNotification}>test</button>
+        <NotificationSystem ref="notifications" />
       </div>
     );
   }
