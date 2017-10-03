@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import logo from '../images/logo.svg';
 import '../css/App.css';
 import NavComponent from './navbar';
-import NotificationButton from './notificationButton';
+import Notifications from './notifications';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <NavComponent />
-        <NotificationButton />
+        <Notifications />
       </div>
     );
   }

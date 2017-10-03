@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import NotificationSystem from 'react-notification-system';
 
-class NotificationButton extends Component {
+class Notifications extends Component {
   constructor(props) {
     super(props);
     this.state = {recieveMessage: true};
@@ -98,4 +98,4 @@ class NotificationButton extends Component {
   }
 }
 
-export default NotificationButton;
+export default Notifications;
