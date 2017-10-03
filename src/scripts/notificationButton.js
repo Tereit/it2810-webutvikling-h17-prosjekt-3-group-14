@@ -8,11 +8,14 @@ class NotificationButton extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.getLocalState = this.getLocalState.bind(this);
     this.setLocalState = this.setLocalState.bind(this);
+    this.checkTime = this.checkTime.bind(this);
 
   }
 
   componentDidMount(){
     this.getLocalState();
+    const timeTest = new Date(2017, 10, 3, 11, 3);
+    console.log(this.checkTime(timeTest));
   }
 
   getLocalState(){
@@ -25,10 +28,8 @@ class NotificationButton extends Component {
       this.setState({
         recieveMessage: false
       });
-    } else {
-      console.log('local state corrupted!');
-    }
   }
+}
 
   setLocalState(state){
     localStorage.setItem('recieveMessage', state);
@@ -37,6 +38,21 @@ class NotificationButton extends Component {
   message(){
     if (this.state.recieveMessage) {
         window.alert('test');
+    }
+  }
+
+  checkTime(notificationTime){
+    var notifDate = notificationTime.getDate();
+    var notifMin = notificationTime.getMinutes();
+    var notifHours = notificationTime.getHours();
+
+    var date = new Date();
+    if (notifDate === date.getDate() &&
+        notifMin === date.getMinutes() &&
+        notifHours === date.getHours()) {
+      return true;
+    } else {
+      return false;
     }
   }
 
