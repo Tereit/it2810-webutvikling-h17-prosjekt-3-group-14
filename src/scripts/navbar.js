@@ -14,7 +14,7 @@ class NavComponent extends Component{
                     </div>
                 </div>
                 <div className="navNarrow">
-                    <i className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+                    <i className="fa fa-bars fa-2x" onClick={this.menuToggle}></i>
                     <div className="narrowLinks">
                         <a href="#" onClick={this.burgerToggle}>Calendar</a>
                         <a href="#" onClick={this.burgerToggle}>Notes</a>
@@ -24,7 +24,7 @@ class NavComponent extends Component{
             </nav>
         );
     }
-    burgerToggle() {
+    menuToggle() {
 		let linksEl = document.querySelector('.narrowLinks');
 		if (linksEl.style.display === 'block') {
 			linksEl.style.display = 'none';
