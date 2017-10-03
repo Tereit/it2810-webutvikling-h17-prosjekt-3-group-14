@@ -21,21 +21,17 @@ class NotificationButton extends Component {
       this.setState({
         recieveMessage: true
       });
-      console.log(this.state.recieveMessage);
     } else if (localstate === 'false') {
       this.setState({
         recieveMessage: false
       });
-      console.log(this.state.recieveMessage);
     } else {
       console.log('local state corrupted!');
     }
   }
 
   setLocalState(state){
-    console.log(state);
     localStorage.setItem('recieveMessage', state);
-    console.log('localstate: ', localStorage.getItem('recieveMessage'));
   }
 
   message(){
