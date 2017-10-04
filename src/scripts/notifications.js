@@ -6,6 +6,7 @@ class Notifications extends Component {
     super(props);
     this.state = {recieveMessage: true, date: new Date()};
     this.notifications = null;
+    this.automaticNotifications = {};
 
     //Bindings
     this.handleChange = this.handleChange.bind(this);
@@ -50,7 +51,7 @@ class Notifications extends Component {
   }
 
   automaticNotification(){
-    const testDate = new Date(2017, 4, 10, 11, 46, 15);
+    const testDate = new Date(2017, 4, 9, 11, 46, 15);
     if (this.state.date.toLocaleTimeString() ===
         testDate.toLocaleTimeString()) {
           console.log('time is equal');
