@@ -1,77 +1,76 @@
 import React, {Component} from 'react';
-import Modal from 'react-modal';
 
 // big calendar
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import '../css/Calendar.css';
 
-// get events for the calendar
-import myEvents from './Events';
+// event handling for the calendar
+import myEvents, {loadEvents, storeEvents} from './Events';
+import AddEventHandler from './AddEventHandler';
 
 moment().format();
 BigCalendar.momentLocalizer(moment);
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        backgroundColor: 'gray'
-    }
-};
-
 class Calendar extends Component {
     constructor(props) {
         super(props);
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.setEvents = this.setEvents.bind(this);
+        this.getEvents = this.getEvents.bind(this);
+        this.addEvent = this.addEvent.bind(this);
+        this.addEventHandler = this.addEventHandler.bind(this);
+        this.openNewEventPanel = this.openNewEventPanel.bind(this);
+
         this.state = {
-            isAddNewEventOpen: false
+            m: moment(),
+            addNewEvent: false,
+            events: []
         }
     }
 
-    openModal() {
+    setEvents() {
+        storeEvents(this.state.events);
+    }
+
+    getEvents() {
+        let events = loadEvents();
         this.setState({
-            isAddNewEventOpen: true
+            events: events
         });
     }
 
-    closeModal() {
+    openNewEventPanel() {
         this.setState({
-            isAddNewEventOpen: false
+            addNewEvent: true
         });
     }
 
-    afterOpenModal() {
+    addEvent() {
 
+    }
+
+    addEventHandler() {
+        if(this.state.addNewEvent) {
+            return(<AddEventHandler moment={this.state.m}/>);
+        } else {
+            return(<div className="empty"></div>);
+        }
     }
 
     render() {
         return (
             <div className="calendar">
-                <button onClick={() => this.openModal()}>New Event</button>
+                <div className="menu">
+                    <button onClick={() => this.openNewEventPanel()}>New Event</button>
+                    <button onClick={() => this.getEvents()}>Load events</button>
+                    <button onClick={() => this.setEvents()}>Store events</button>
+                    <button onClick={storeEvents(myEvents)}>Initialize</button>
+                    {this.addEventHandler()}
+                </div>
                 <BigCalendar
-                    events={myEvents}
+                    events={this.state.events}
                     defaultDate={new Date(2017, 9, 27)}
                 />
-                <Modal
-                    isOpen={this.state.isAddNewEventOpen}
-                    onAfterOpen={this.afterOpenModal}
-                    onRequestClose={this.closeModal}
-                    style={customStyles}
-                    contentLabel="Add new event"
-                >
-                    <form>
-                        <label>Title</label><input/><br/>
-                        <label>Full Day?</label><input type="checkbox"/>
-                    </form>
-                    <button onClick={this.closeModal}>Close</button>
-                </Modal>
             </div>
         );
     }
