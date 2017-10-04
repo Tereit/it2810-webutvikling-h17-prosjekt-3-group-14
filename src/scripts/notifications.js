@@ -4,7 +4,7 @@ import NotificationSystem from 'react-notification-system';
 class Notifications extends Component {
   constructor(props) {
     super(props);
-    this.state = {recieveMessage: true};
+    this.state = {recieveMessage: true, date: new Date()};
     this.notifications = null;
 
     //Bindings
@@ -13,17 +13,28 @@ class Notifications extends Component {
     this.setLocalState = this.setLocalState.bind(this);
     this.checkTime = this.checkTime.bind(this);
     this.addNotification = this.addNotification.bind(this);
+    this.tick = this.tick.bind(this);
+    this.automaticNotification = this.automaticNotification.bind(this);
 
   }
 
   componentDidMount(){
     this.getLocalState();
     this.notifications = this.refs.notifications;
+    this.timerID = setInterval(
+      () => this.tick(),
+       1000
+    );
   }
 
-  addNotification(e){
+  componentWillUnmount(){
+    clearInterval(this.timerID);
+  }
+
+  addNotification(){
+    console.log('i am called');
     if (this.state.recieveMessage) {
-      e.preventDefault();
+      //event.preventDefault();
       this.notifications.addNotification({
         title: 'Notification',
         message: 'Test',
@@ -36,6 +47,22 @@ class Notifications extends Component {
         )
       });
     }
+  }
+
+  automaticNotification(){
+    const testDate = new Date(2017, 4, 10, 11, 46, 15);
+    if (this.state.date.toLocaleTimeString() ===
+        testDate.toLocaleTimeString()) {
+          console.log('time is equal');
+          this.addNotification();
+    }
+  }
+
+  tick(){
+    this.setState({
+      date: new Date()
+    });
+    this.automaticNotification();
   }
 
   getLocalState(){
@@ -61,10 +88,9 @@ class Notifications extends Component {
     var notifMin = notificationTime.getMinutes();
     var notifHours = notificationTime.getHours();
 
-    var date = new Date();
-    if (notifDate === date.getDate() &&
-        notifMin === date.getMinutes() &&
-        notifHours === date.getHours()) {
+    if (notifDate === this.state.date.getDate() &&
+        notifMin === this.state.date.getMinutes() &&
+        notifHours === this.state.date.getHours()) {
       return true;
     } else {
       return false;
@@ -85,6 +111,8 @@ class Notifications extends Component {
   render(){
     return(
       <div>
+        <h1>TIME: {this.state.date.toLocaleTimeString()}</h1>
+        <br />
         <input
         type="checkbox"
         name="recieveMessage"
