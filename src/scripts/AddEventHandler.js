@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Calendar from 'react-input-calendar';
+import Datepicker from './Datepicker';
 
 class AddEventHandler extends Component {
     constructor(props) {
@@ -10,31 +10,46 @@ class AddEventHandler extends Component {
             date: new Date()
         };
 
+        this.onTitleChange = this.onTitleChange.bind(this);
         this.onAllDayChange = this.onAllDayChange.bind(this);
         this.onDateChange = this.onDateChange.bind(this);
-        this.onTitleChange = this.onTitleChange.bind(this);
+        this.onAddEvent = this.onAddEvent.bind(this);
     }
 
-    onTitleChange() {
-
+    onTitleChange(event) {
+        this.setState({
+            title: event.target.value
+        });
     }
 
-    onAllDayChange() {
-
+    onAllDayChange(event) {
+        this.setState({
+            allDay: event.target.checked
+        });
     }
 
-    onDateChange() {
+    onDateChange(value) {
+        this.setState({
+            date: value
+        });
+    }
 
+    onAddEvent() {
+        console.log(this.state.title);
+        console.log(this.state.allDay);
+        console.log(this.state.date);
+        this.props.addEvent(this.state.title, this.state.allDay, this.state.date);
     }
 
     render() {
         return(
             <div className="addEventForm">
                 <form>
-                    <label>Title:</label><input /><br />
-                    <label>All day?</label><input type="checkbox"/><br/>
-                    <label>Date:</label>
+                    <label>Title:</label><input onChange={this.onTitleChange}/><br />
+                    <label>All day?</label><input type="checkbox" onChange={this.onAllDayChange}/><br/>
+                    <label>Date:</label><Datepicker change={this.onDateChange} defaultValue={this.state.date}/><br/>
                 </form>
+                <button onClick={this.onAddEvent}>Add event</button>
             </div>
         )
     }

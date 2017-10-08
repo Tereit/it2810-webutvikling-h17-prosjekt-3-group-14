@@ -6,7 +6,7 @@ import moment from 'moment';
 import '../css/Calendar.css';
 
 // event handling for the calendar
-import myEvents, {loadEvents, storeEvents} from './Events';
+import {loadEvents, storeEvents} from './Events';
 import AddEventHandler from './AddEventHandler';
 
 moment().format();
@@ -15,11 +15,10 @@ BigCalendar.momentLocalizer(moment);
 class Calendar extends Component {
     constructor(props) {
         super(props);
-        this.setEvents = this.setEvents.bind(this);
-        this.getEvents = this.getEvents.bind(this);
         this.addEvent = this.addEvent.bind(this);
         this.addEventHandler = this.addEventHandler.bind(this);
         this.openNewEventPanel = this.openNewEventPanel.bind(this);
+        this.removeEvent = this.removeEvent.bind(this);
 
         this.state = {
             m: moment(),
@@ -28,15 +27,15 @@ class Calendar extends Component {
         }
     }
 
-    setEvents() {
-        storeEvents(this.state.events);
-    }
-
-    getEvents() {
+    componentWillMount() {
         let events = loadEvents();
         this.setState({
             events: events
         });
+    }
+
+    componentWillUnmount() {
+        storeEvents(this.state.events);
     }
 
     openNewEventPanel() {
@@ -45,13 +44,25 @@ class Calendar extends Component {
         });
     }
 
-    addEvent() {
+    addEvent(title, allDay, date) {
+        const newEvent = {
+            title: title,
+            allDay: allDay,
+            start: date,
+            end: date
+        };
+        this.setState({
+            events: [...this.state.events, newEvent]
+        });
+    }
+
+    removeEvent() {
 
     }
 
     addEventHandler() {
         if(this.state.addNewEvent) {
-            return(<AddEventHandler moment={this.state.m}/>);
+            return(<AddEventHandler moment={this.state.m} addEvent={this.addEvent}/>);
         } else {
             return(<div className="empty"></div>);
         }
@@ -62,9 +73,6 @@ class Calendar extends Component {
             <div className="calendar">
                 <div className="menu">
                     <button onClick={() => this.openNewEventPanel()}>New Event</button>
-                    <button onClick={() => this.getEvents()}>Load events</button>
-                    <button onClick={() => this.setEvents()}>Store events</button>
-                    <button onClick={storeEvents(myEvents)}>Initialize</button>
                     {this.addEventHandler()}
                 </div>
                 <BigCalendar
