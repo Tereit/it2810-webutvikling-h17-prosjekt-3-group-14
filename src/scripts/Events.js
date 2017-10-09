@@ -1,27 +1,26 @@
-let myEvents = [
-    {
-        'title': 'Morten Birthday',
-        'allDay': true,
-        'start': new Date(2017, 8, 29),
-        'end': new Date(2017, 8, 30)
-    },
-    {
-        'title': 'Silje Birthday',
-        'allDay': true,
-        'start': new Date(2017, 9, 14),
-        'end': new Date(2017, 9, 14)
-    }
-];
-export default myEvents;
-
 export function loadEvents() {
-    return JSON.parse(localStorage.getItem("events"));
+    let events = [];
+    let inputString = JSON.parse(localStorage.getItem("events"));
+    for(let i = 0; i < inputString.length; i++) {
+        let start = parseDate(inputString[i].start.split('T'));
+        let end = parseDate(inputString[i].end.split('T'));
+        let event = {
+            title: inputString[i].title,
+            allDay: inputString[i].allDay,
+            start: start,
+            end: end
+        };
+        events.push(event);
+    }
+    return events;
+}
+
+function parseDate(dateinfo) {
+    dateinfo = dateinfo[0].replace('"', '');
+    dateinfo = dateinfo.split('-');
+    return new Date(dateinfo[0], dateinfo[1]-1, parseInt(dateinfo[2])+1);
 }
 
 export function storeEvents(events) {
     localStorage.setItem("events", JSON.stringify(events));
-}
-
-export function addEvent(title, allDay, startDate, endDate) {
-    myEvents.push({'title': title, 'allDay': allDay, 'startDate': startDate, 'endDate': endDate});
 }

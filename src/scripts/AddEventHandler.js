@@ -35,10 +35,8 @@ class AddEventHandler extends Component {
     }
 
     onAddEvent() {
-        console.log(this.state.title);
-        console.log(this.state.allDay);
-        console.log(this.state.date);
         this.props.addEvent(this.state.title, this.state.allDay, this.state.date);
+        this.props.showCalendar();
     }
 
     render() {
@@ -50,6 +48,7 @@ class AddEventHandler extends Component {
                     <label>Date:</label><Datepicker change={this.onDateChange} defaultValue={this.state.date}/><br/>
                 </form>
                 <button onClick={this.onAddEvent}>Add event</button>
+                <button onClick={this.props.showCalendar}>Close</button>
             </div>
         )
     }
