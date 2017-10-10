@@ -7,12 +7,14 @@ class AddEventHandler extends Component {
         this.state = {
             title: "",
             allDay: false,
-            date: new Date()
+            start: new Date(),
+            end: new Date()
         };
 
         this.onTitleChange = this.onTitleChange.bind(this);
         this.onAllDayChange = this.onAllDayChange.bind(this);
-        this.onDateChange = this.onDateChange.bind(this);
+        this.onStartDateChange = this.onStartDateChange.bind(this);
+        this.onEndDateChange = this.onEndDateChange.bind(this);
         this.onAddEvent = this.onAddEvent.bind(this);
     }
 
@@ -28,14 +30,20 @@ class AddEventHandler extends Component {
         });
     }
 
-    onDateChange(value) {
+    onStartDateChange(value) {
         this.setState({
-            date: value
+            start: value
+        });
+    }
+
+    onEndDateChange(value) {
+        this.setState({
+            end: value
         });
     }
 
     onAddEvent() {
-        this.props.addEvent(this.state.title, this.state.allDay, this.state.date);
+        this.props.addEvent(this.state.title, this.state.allDay, this.state.start, this.state.end);
         this.props.showCalendar();
     }
 
@@ -45,7 +53,8 @@ class AddEventHandler extends Component {
                 <form>
                     <label>Title:</label><input onChange={this.onTitleChange}/><br />
                     <label>All day?</label><input type="checkbox" onChange={this.onAllDayChange}/><br/>
-                    <label>Date:</label><Datepicker change={this.onDateChange} defaultValue={this.state.date}/><br/>
+                    <label>Start date:</label><Datepicker change={this.onStartDateChange} defaultValue={this.state.start}/><br/>
+                    <label>End date:</label><Datepicker change={this.onEndDateChange} defaultValue={this.state.end}/><br/>
                 </form>
                 <button onClick={this.onAddEvent}>Add event</button>
                 <button onClick={this.props.showCalendar}>Close</button>

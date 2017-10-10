@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import 'moment/locale/en-gb'
 
 // big calendar
 import BigCalendar from 'react-big-calendar';
@@ -11,6 +12,7 @@ import AddEventHandler from './AddEventHandler';
 import ShowEvent from './ShowEvent';
 
 moment().format();
+moment.locale('en-gb');
 BigCalendar.momentLocalizer(moment);
 
 class Calendar extends Component {
@@ -46,12 +48,12 @@ class Calendar extends Component {
         });
     }
 
-    addEvent(title, allDay, date) {
+    addEvent(title, allDay, start, end) {
         const newEvent = {
             title: title,
             allDay: allDay,
-            start: date,
-            end: date
+            start: start,
+            end: end
         };
         let events = [...this.state.events, newEvent];
         this.setState({
