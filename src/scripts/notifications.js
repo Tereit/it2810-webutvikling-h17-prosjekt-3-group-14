@@ -29,6 +29,7 @@ class Notifications extends Component {
     this.getNotifications = this.getNotifications.bind(this);
     this.parseDate = this.parseDate.bind(this);
     this.logState = this.logState.bind(this);
+    this.loadNotifications = this.loadNotifications.bind(this);
 
   }
 
@@ -39,9 +40,7 @@ class Notifications extends Component {
   }
 
   componentWillMount() {
-    let notifications = this.getNotifications();
-    this.setState({automaticNotification: notifications});
-
+    this.loadNotifications();
   }
 
   componentWillUnmount() {
@@ -51,6 +50,14 @@ class Notifications extends Component {
   logState() {
     console.log('state: ', this.state.automaticNotifications);
   }
+
+  loadNotifications(){
+    let notifications = this.getNotifications();
+    this.setState({automaticNotification: notifications});
+    for (var i = 0; i < notifications.length; i++) {
+      console.log(notifications[i]);
+  }
+}
 
   addNotification() {
     if (this.state.recieveMessage) {
