@@ -10,7 +10,7 @@ class Notifications extends Component {
       automaticNotifications: [],
       title: '',
       message: '',
-      notificationTime: null
+      notificationDate: null
     };
     // Notification list to display on screen
     this.notifications = null;
@@ -18,9 +18,8 @@ class Notifications extends Component {
     //Bindings
     this.handleChange = this.handleChange.bind(this);
     this.getLocalState = this.getLocalState.bind(this);
-    this.setLocalState = this.setLocalState.bind(this);
-    this.checkTime = this.checkTime.bind(this);
-    this.addNotification = this.addNotification.bind(this);
+    this.setLocalStorage = this.setLocalStorage.bind(this);
+    this.checkDateAndTime = this.checkDateAndTime.bind(this);
     this.tick = this.tick.bind(this);
     this.automaticNotification = this.automaticNotification.bind(this);
     this.createNotification = this.createNotification.bind(this);
@@ -28,66 +27,49 @@ class Notifications extends Component {
     this.saveNotifications = this.saveNotifications.bind(this);
     this.getNotifications = this.getNotifications.bind(this);
     this.parseDate = this.parseDate.bind(this);
-    this.logState = this.logState.bind(this);
     this.loadNotifications = this.loadNotifications.bind(this);
 
   }
 
   componentDidMount() {
     this.getLocalState('recieveMessage');
+    //this.loadNotifications();
     this.notifications = this.refs.notifications;
     this.timerID = setInterval(() => this.tick(), 1000);
-  }
-
-  componentWillMount() {
-    this.loadNotifications();
   }
 
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
 
-  logState() {
-    console.log('state: ', this.state.automaticNotifications);
-  }
-
   loadNotifications(){
     let notifications = this.getNotifications();
     this.setState({automaticNotification: notifications});
     for (var i = 0; i < notifications.length; i++) {
+      this.state.automaticNotifications.push(notifications[i]);
       console.log(notifications[i]);
   }
+  console.log('Notifications loaded!');
 }
-
-  addNotification() {
-    if (this.state.recieveMessage) {
-      this.notifications.addNotification({title: 'Notification', message: 'Test', level: 'info', position: 'tr', children: (
-          <div>
-            <h2>Test</h2>
-          </div>
-        )});
-    }
-  }
 
   automaticNotification() {
     if (this.state.recieveMessage) {
       for (var i = 0; i < this.state.automaticNotifications.length; i++) {
-        if (this.checkTime(this.state.automaticNotifications[i])) {
+        if (this.checkDateAndTime(this.state.automaticNotifications[i])) {
           this.notifications.addNotification(this.state.automaticNotifications[i]);
           this.state.automaticNotifications.splice([i], 1);
-          console.log('Removed notification ', [i]);
         }
       }
     }
   }
 
-  createNotification(title, message, time) {
+  createNotification() {
     const notification = {
-      title: title,
-      message: message,
+      title: this.state.title,
+      message: this.state.message,
       level: 'info',
       position: 'br',
-      time: time
+      time: this.state.notificationDate
     }
     this.setState({
       automaticNotifications: [
@@ -95,12 +77,14 @@ class Notifications extends Component {
         notification
       ]
     });
-    console.log('Notification created!', notification);
     this.saveNotifications();
   }
 
   saveNotifications() {
     localStorage.setItem('notifications', JSON.stringify(this.state.automaticNotifications));
+
+    console.log(this.state.automaticNotifications);
+
     console.log('Notifications saved!');
   }
 
@@ -119,15 +103,13 @@ class Notifications extends Component {
       notifications.push(notification);
     }
 
-    console.log('notifications: ', notifications);
-    console.log('Notifications loaded!');
-
     return notifications;
   }
 
   parseDate(dateinfo) {
     dateinfo = dateinfo[0].replace('"', '');
     dateinfo = dateinfo.split('-');
+    console.log(dateinfo[0], dateinfo[1]-1, parseInt(dateinfo[2]));
     return new Date(dateinfo[0], dateinfo[1] - 1, parseInt(dateinfo[2]));
   }
 
@@ -146,18 +128,20 @@ class Notifications extends Component {
       this.setState({recieveMessage: false});
     }
   }
-  setLocalState(key, state) {
+  setLocalStorage(key, state) {
     // Sets the HTML localStorage state of recieveMessage to the correct state
     localStorage.setItem(key, state);
   }
 
-  checkTime(notification) {
+  checkDateAndTime(notification) {
     //Requires a date object
     let notifDate = notification.time.getDate();
-    let notifMin = notification.time.getMinutes();
-    let notifHours = notification.time.getHours();
 
-    if (notifDate === this.state.date.getDate() && notifMin === this.state.date.getMinutes() && notifHours === this.state.date.getHours()) {
+    // USED FOR CHECKING TIME
+    //let notifMin = notification.time.getMinutes();
+    //let notifHours = notification.time.getHours();
+
+    if (notifDate === this.state.date.getDate()) {
       return true;
     } else {
       return false;
@@ -165,7 +149,7 @@ class Notifications extends Component {
   }
 
   buildNotification() {
-    this.createNotification(this.state.title, this.state.message, new Date(this.state.notificationTime));
+    this.createNotification(this.state.title, this.state.message, new Date(this.state.notificationDate));
   }
 
   handleChange(event) {
@@ -177,7 +161,7 @@ class Notifications extends Component {
     const name = target.name;
 
     this.setState({[name]: value});
-    this.setLocalState('recieveMessage', value);
+    this.setLocalStorage('recieveMessage', value);
   }
 
   render() {
@@ -187,8 +171,6 @@ class Notifications extends Component {
         <br/>
         <input type="checkbox" name="recieveMessage" checked={this.state.recieveMessage} onChange={this.handleChange}/>
         Recieve Messages?<br/>
-        <button onClick={this.addNotification}>test</button>
-        <NotificationSystem ref="notifications"/>
         <br/>
         <input type="text" name="title" placeholder="title" onChange={this.handleChange}/>
         <br/>
@@ -196,10 +178,10 @@ class Notifications extends Component {
         <input type="text" name="message" placeholder="message" onChange={this.handleChange}/>
         <br/>
         <br/>
-        <input type="datetime" name="notificationTime" onChange={this.handleChange}/>
+        <input type="datetime" name="notificationDate" onChange={this.handleChange}/>
         <br/>
-        <button onClick={this.buildNotification}>Add Notification</button>
-        {this.logState()}
+        <button onClick={this.createNotification}>Add Notification</button>
+        <NotificationSystem ref="notifications"/>
       </div>
     );
   }
