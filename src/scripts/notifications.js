@@ -8,8 +8,8 @@ class Notifications extends Component {
       recieveMessage: true,
       date: new Date(),
       automaticNotifications: [],
-      title: '',
-      message: '',
+      NotificationTitle: '',
+      notificationMessage: '',
       notificationDate: null
     };
     // Notification list to display on screen
@@ -33,7 +33,7 @@ class Notifications extends Component {
 
   componentDidMount() {
     this.getLocalState('recieveMessage');
-    //this.loadNotifications();
+    this.loadNotifications();
     this.notifications = this.refs.notifications;
     this.timerID = setInterval(() => this.tick(), 1000);
   }
@@ -63,28 +63,19 @@ class Notifications extends Component {
     }
   }
 
-  createNotification() {
-    const notification = {
-      title: this.state.title,
-      message: this.state.message,
-      level: 'info',
-      position: 'br',
-      time: this.state.notificationDate
-    }
+  createNotification(notification) {
+    const notifications = [
+      ...this.state.automaticNotifications, notification
+    ]
+    console.log(this.state.automaticNotifications);
     this.setState({
-      automaticNotifications: [
-        ...this.state.automaticNotifications,
-        notification
-      ]
+      automaticNotifications: notifications
     });
-    this.saveNotifications();
+    this.saveNotifications(notifications);
   }
 
-  saveNotifications() {
-    localStorage.setItem('notifications', JSON.stringify(this.state.automaticNotifications));
-
-    console.log(this.state.automaticNotifications);
-
+  saveNotifications(notifications) {
+    localStorage.setItem('notifications', JSON.stringify(notifications));
     console.log('Notifications saved!');
   }
 
@@ -109,8 +100,8 @@ class Notifications extends Component {
   parseDate(dateinfo) {
     dateinfo = dateinfo[0].replace('"', '');
     dateinfo = dateinfo.split('-');
-    console.log(dateinfo[0], dateinfo[1]-1, parseInt(dateinfo[2]));
-    return new Date(dateinfo[0], dateinfo[1] - 1, parseInt(dateinfo[2]));
+    console.log(dateinfo[0], parseInt(dateinfo[1]) - 1, parseInt(dateinfo[2]) + 1);
+    return new Date(dateinfo[0], parseInt(dateinfo[1]) - 1, parseInt(dateinfo[2]) + 1);
   }
 
   tick() {
@@ -149,7 +140,15 @@ class Notifications extends Component {
   }
 
   buildNotification() {
-    this.createNotification(this.state.title, this.state.message, new Date(this.state.notificationDate));
+    let notification = {
+      title: this.state.notificationTitle,
+      message: this.state.notificationMessage,
+      level: 'info',
+      position: 'tr',
+      time: new Date(this.state.notificationDate)
+    }
+    console.log(notification.time);
+    this.createNotification(notification);
   }
 
   handleChange(event) {
@@ -167,24 +166,27 @@ class Notifications extends Component {
   render() {
     return (
       <div>
-        <h1>TIME: {this.state.date.toLocaleTimeString()}</h1>
-        <br/>
-        <input type="checkbox" name="recieveMessage" checked={this.state.recieveMessage} onChange={this.handleChange}/>
-        Recieve Messages?<br/>
-        <br/>
-        <input type="text" name="title" placeholder="title" onChange={this.handleChange}/>
-        <br/>
-        <br/>
-        <input type="text" name="message" placeholder="message" onChange={this.handleChange}/>
-        <br/>
-        <br/>
-        <input type="datetime" name="notificationDate" onChange={this.handleChange}/>
-        <br/>
-        <button onClick={this.createNotification}>Add Notification</button>
         <NotificationSystem ref="notifications"/>
       </div>
     );
   }
 }
+
+/*
+<h1>TIME: {this.state.date.toLocaleTimeString()}</h1>
+<br/>
+<input type="checkbox" name="recieveMessage" checked={this.state.recieveMessage} onChange={this.handleChange}/>
+Recieve Messages?<br/>
+<br/>
+<input type="text" name="notificationTitle" placeholder="title" onChange={this.handleChange}/>
+<br/>
+<br/>
+<input type="text" name="notificationMessage" placeholder="message" onChange={this.handleChange}/>
+<br/>
+<br/>
+<input type="datetime" name="notificationDate" onChange={this.handleChange}/>
+<br/>
+<button onClick={this.buildNotification}>Add Notification</button>
+*/
 
 export default Notifications;

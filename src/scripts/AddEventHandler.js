@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Datepicker from './Datepicker';
+import Notifications from './Notifications';
 
 class AddEventHandler extends Component {
     constructor(props) {
