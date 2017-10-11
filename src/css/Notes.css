@@ -1,0 +1,53 @@
+.headerBar {
+  flex: 1;
+  flex-direction: row;
+  background-color: #F7DDA6;
+  width: 100%;
+  height: 50px;
+  font-size: 32px;
+  color: white;
+}
+
+.notesList {
+  flex: 1;
+  flex-direction: row;
+  background-color: white;
+  width: 350px;
+  height: 1000px;
+  border-right: solid 1px grey;
+  list-style: none;
+  margin-left: -50px;
+  margin-top: -10px;
+
+}
+
+.noteElement{
+  flex: 1;
+  flex-direction: column;
+  background-color: white;
+  width: 350px;
+  height: 40px;
+  border-bottom: solid 1px grey;
+}
+
+.addNote {
+  font-size: 12px;
+  border-bottom: solid 1px grey;
+}
+
+.note {
+  flex: 1;
+  flex-direction: row;
+  background-color: blue;
+  width: 350px;
+  height: 1000px;
+  border-right: solid 1px grey;
+}
+
+.flex-box1 {
+  flex: 1;
+  flex-direction: row;
+  background-color: red;
+  width: 100px;
+  height: 100px;
+}
