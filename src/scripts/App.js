@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import logo from '../images/logo.svg';
 import '../css/App.css';
 import NavComponent from './navbar';
 import Notifications from './notifications';
+import Notes from './Notes';
+import Calendar from './Calendar';
 
 class App extends Component {
   render() {
