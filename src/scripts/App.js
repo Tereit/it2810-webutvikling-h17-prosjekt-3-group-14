@@ -4,6 +4,7 @@ import NavComponent from './Navbar';
 import Notifications from './Notifications';
 import Notes from './Notes';
 import Calendar from './Calendar';
+import ToDoList from './ToDoList';
 
 class App extends Component {
     constructor() {
@@ -79,8 +80,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+<<<<<<< HEAD
           <NavComponent setDisplay={this.setDisplay}/>
           {this.display()}
+=======
+>>>>>>> silje
       </div>
     );
   }
