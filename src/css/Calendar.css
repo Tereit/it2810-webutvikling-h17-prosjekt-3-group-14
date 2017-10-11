@@ -18,7 +18,6 @@ button.rbc-input::-moz-focus-inner {
 }
 .rbc-calendar {
     box-sizing: border-box;
-    height: 750px;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -606,4 +605,14 @@ button.rbc-input::-moz-focus-inner {
 .rbc-rtl .rbc-current-time-indicator::before {
     left: 0;
     right: -3px;
+}
+
+.calendar {
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.rbc-calendar {
+    height: 40em;
 }

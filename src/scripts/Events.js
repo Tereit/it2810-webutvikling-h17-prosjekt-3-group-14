@@ -1,6 +1,9 @@
 export function loadEvents() {
     let events = [];
     let inputString = JSON.parse(localStorage.getItem("events"));
+    if(inputString === null) {
+        return events;
+    }
     for(let i = 0; i < inputString.length; i++) {
         let start = parseDate(inputString[i].start);
         let end = parseDate(inputString[i].end);
