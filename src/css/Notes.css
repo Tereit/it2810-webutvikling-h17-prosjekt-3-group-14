@@ -1,4 +1,24 @@
+/*Contains the full page*/
+.container {
+  background-color: white;
+}
+
+/*Contains header and form area*/
+.flexbox1 {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.flexbox2{
+  display: flex;
+  flex:1;
+  flex-direction: row;
+}
+
+/*Header*/
 .headerBar {
+  display: flex;
   flex: 1;
   flex-direction: row;
   background-color: #F7DDA6;
@@ -6,8 +26,11 @@
   height: 50px;
   font-size: 32px;
   color: white;
+  justify-content: center;
+  z-index: 1;
 }
 
+/*Note list area*/
 .notesList {
   flex: 1;
   flex-direction: row;
@@ -15,39 +38,45 @@
   width: 350px;
   height: 1000px;
   border-right: solid 1px grey;
-  list-style: none;
-  margin-left: -50px;
-  margin-top: -10px;
-
+  border-left: solid 1px grey;
+  list-style-type: none;
+  margin-top: -15px;
+  padding: 0;
 }
 
+.noteView {
+  background-color: white;
+  width: 100%;
+  height: 1000px;
+}
+
+/*Form area*/
+.form {
+  background-color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 800px;
+}
+
+/* Note */
 .noteElement{
   flex: 1;
   flex-direction: column;
   background-color: white;
-  width: 350px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   border-bottom: solid 1px grey;
+  padding-top: 20px;
 }
 
-.addNote {
+.saveButton{
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  color: white;
+  background-color: #73C99C;
+  border: 0px;
   font-size: 12px;
-  border-bottom: solid 1px grey;
-}
-
-.note {
-  flex: 1;
-  flex-direction: row;
-  background-color: blue;
-  width: 350px;
-  height: 1000px;
-  border-right: solid 1px grey;
-}
-
-.flex-box1 {
-  flex: 1;
-  flex-direction: row;
-  background-color: red;
-  width: 100px;
-  height: 100px;
+  padding: 5px;
+  margin: 5px;
 }

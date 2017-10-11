@@ -37,26 +37,33 @@ addNote(){
 
   render (){
     return(
+      <div className="form">
       <form>
         <label>
-          Title:
+          Add note
+          <br/>
           <input
             name="title"
             type="text"
+            placeholder="Title.."
+            className="titleinput"
             value={this.state.title}
             onChange={this.onTitleChange} />
         </label>
         <br />
         <label>
-          Write your note
+
+          <br/>
           <textarea
           name='body'
+          placeholder="Write your note here.."
           value={this.state.body}
           onChange={this.onBodyChange}/>
         </label>
         <br />
-        <button type='button' value='Save Note!' onClick={this.addNote} >Save note</button>
+        <button type='button' value='Save Note!' className="saveButton" onClick={this.addNote} >Save note</button>
       </form>
+    </div>
     );
   }
 
