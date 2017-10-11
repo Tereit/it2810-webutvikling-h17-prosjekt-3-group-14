@@ -3,20 +3,24 @@
   background-color: white;
 }
 
-/*Contains header and form area*/
+/* Contains header */
 .flexbox1 {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
 
+/* Contains form area, note list and note view */
 .flexbox2{
   display: flex;
   flex:1;
   flex-direction: row;
+  min-width: 0;
+  flex-wrap: wrap;
+  flex-grow: 0;
 }
 
-/*Header*/
+/* Header */
 .headerBar {
   display: flex;
   flex: 1;
@@ -28,26 +32,34 @@
   color: white;
   justify-content: center;
   z-index: 1;
+  padding-top: 8px;
 }
 
-/*Note list area*/
+/* Note list area */
 .notesList {
   flex: 1;
   flex-direction: row;
   background-color: white;
   width: 350px;
-  height: 1000px;
+  height: 100%;
   border-right: solid 1px grey;
   border-left: solid 1px grey;
+  border-top: solid 1px grey;
   list-style-type: none;
   margin-top: -15px;
   padding: 0;
+  display: column;
+  z-index: 1;
 }
 
+/* Note view area*/
 .noteView {
   background-color: white;
-  width: 100%;
+  width: 450px;
   height: 1000px;
+  text-align: justify;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /*Form area*/
@@ -55,20 +67,25 @@
   background-color: white;
   padding-top: 15px;
   padding-bottom: 15px;
-  width: 800px;
+  width: 450px;
 }
 
 /* Note */
 .noteElement{
   flex: 1;
-  flex-direction: column;
+  flex-direction: row;
+  display: flex;
   background-color: white;
   width: 100%;
   height: 100%;
   border-bottom: solid 1px grey;
   padding-top: 20px;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding-left: 10px;
 }
 
+/*Save note button*/
 .saveButton{
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -79,4 +96,39 @@
   font-size: 12px;
   padding: 5px;
   margin: 5px;
+}
+
+/* Delete button/Trashcan icon for deleting note*/
+.deleteButton{
+  font-size: 25px;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: 5px;
+  box-sizing: border-box;
+  padding-right: 10px;
+}
+
+/* Title input*/
+.titleInput {
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  border: 1px solid black;
+  padding: 3px;
+  margin-bottom: 10px;
+}
+
+/* Note input */
+.noteInput {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  border: 1px solid black;
+  padding: 3px;
+  resize: none;
+  width: 300px;
+  height: 300px;
+  padding: 8px;
 }

@@ -40,13 +40,13 @@ addNote(){
       <div className="form">
       <form>
         <label>
-          Add note
+          <div className="addNoteHeader">Add note</div>
           <br/>
           <input
             name="title"
             type="text"
             placeholder="Title.."
-            className="titleinput"
+            className="titleInput"
             value={this.state.title}
             onChange={this.onTitleChange} />
         </label>
@@ -57,6 +57,7 @@ addNote(){
           <textarea
           name='body'
           placeholder="Write your note here.."
+          className="noteInput"
           value={this.state.body}
           onChange={this.onBodyChange}/>
         </label>

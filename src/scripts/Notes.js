@@ -85,7 +85,7 @@ class Notes extends Component {
       <div className="flexbox2">
         <AddNote addNote = {this.addNote}/>
         <NoteList notes = {this.state.notes} delete= {this.deleteNote} selected = {this.selectedNote}/>
-        <div className="noteView"><NoteView currentNote = {this.state.currentNote}/></div>
+        <NoteView currentNote = {this.state.currentNote}/>
       </div>
 
         {this.save()}

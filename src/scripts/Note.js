@@ -9,7 +9,7 @@ class Note extends Component {
     return(
       <div className="noteElement">
       <p onClick = {()=>{this.props.selected(this)}}>{this.props.note.title}</p>
-      <button onClick={()=>{this.props.delete(this)}}>Delete</button>
+      <i className="fa fa-trash-o deleteButton" aria-hidden="true" onClick={()=>{this.props.delete(this)}}/>
     </div>
     )
   }
