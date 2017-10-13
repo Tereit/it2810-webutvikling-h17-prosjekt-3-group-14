@@ -71,7 +71,7 @@ class App extends Component {
         } else if(this.state.displayNotes) {
             return <Notes/>
         } else if(this.state.displayTodo) {
-            return <div><p>Todo list will be here when done</p></div>
+            return <ToDoList />
         } else {
             return <div><p>Couldn't load requested page, something went wrong!</p></div>
         }
@@ -80,11 +80,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-<<<<<<< HEAD
           <NavComponent setDisplay={this.setDisplay}/>
           {this.display()}
-=======
->>>>>>> silje
       </div>
     );
   }

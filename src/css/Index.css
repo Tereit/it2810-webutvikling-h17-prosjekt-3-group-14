@@ -1,14 +1,8 @@
 body {
-  padding: 50px;
-  background-color: #66CCFF;
   font-family: sans-serif;
   height: 100%;
 }
 
 html {
   height: 100%;
-}
-.App {
-  display: flex;
-  justify-content: center;
 }
