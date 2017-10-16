@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Datepicker from './Datepicker';
+// import Datepicker from './Datepicker';
 import Notifications from './Notifications';
 
 class AddEventHandler extends Component {
@@ -54,8 +54,8 @@ class AddEventHandler extends Component {
                 <form>
                     <label>Title:</label><input onChange={this.onTitleChange}/><br />
                     <label>All day?</label><input type="checkbox" onChange={this.onAllDayChange}/><br/>
-                    <label>Start date:</label><Datepicker change={this.onStartDateChange} defaultValue={this.state.start}/><br/>
-                    <label>End date:</label><Datepicker change={this.onEndDateChange} defaultValue={this.state.end}/><br/>
+                    // <label>Start date:</label><Datepicker change={this.onStartDateChange} defaultValue={this.state.start}/><br/>
+                    // <label>End date:</label><Datepicker change={this.onEndDateChange} defaultValue={this.state.end}/><br/>
                 </form>
                 <button onClick={this.onAddEvent}>Add event</button>
                 <button onClick={this.props.showCalendar}>Close</button>
