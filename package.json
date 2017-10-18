@@ -17,6 +17,7 @@
     "react-notification-system": "^0.2.15"
   },
   "devDependencies": {
+    "enzyme": "^3.1.0",
     "react-scripts": "1.0.13"
   },
   "scripts": {

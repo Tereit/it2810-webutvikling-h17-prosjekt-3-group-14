@@ -44,6 +44,27 @@
 
 .menu-icon > .fa {
   font-size: 15em;
+  width: 280px;
+  height: 280px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50%;
+  color: white;
+}
+
+.menu-icon > .fa-calendar{
+  padding: 30px;
+  background-color: #104B72;
+}
+
+.menu-icon > .fa-sticky-note {
+  padding: 30px;
+  background-color: #F7DDA6;
+}
+
+.menu-icon > .fa-list-ul {
+  padding: 30px;
+  background-color: #8de2e8;
 }
 
 Calendar {
