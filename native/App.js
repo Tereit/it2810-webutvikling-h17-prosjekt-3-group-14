@@ -3,6 +3,8 @@ import { Text, View } from 'react-native';
 import Home from './components/Home';
 import ToDoItems from './components/ToDoItems';
 import Notes from './components/Notes';
+import Calendar from './components/Calendar';
+import {StackNavigator} from 'react-navigation';
 
 const SimpleApp = StackNavigator({
     Home: {screen: Home},
