@@ -1,3 +1,26 @@
+.todoListContainer {
+  padding: 25px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+
+.todoListMain .headerBar {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  background-color: #8DE2E8;
+  width: 100%;
+  padding-bottom: 8px;
+  font-size: 32px;
+  color: white;
+  justify-content: center;
+  z-index: 1;
+  padding-top: 8px;
+}
+
 .todoListMain .header input {
   padding: 10px;
   font-size: 16px;
@@ -25,8 +48,14 @@
 }
 .todoListMain .list li {
   color: #333;
-  background-color: rgba(255,255,255,.5);
+  background-color: rgba(141, 226, 232, 0.5);
   padding: 15px;
   margin-bottom: 15px;
   border-radius: 5px;
+  word-wrap: break-word;
+}
+
+p {
+  color: grey;
+  font-size: 11px;
 }
