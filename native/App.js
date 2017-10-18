@@ -1,14 +1,40 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import ToDoItems from './components/ToDoItems';
+import Home from './components/Home';
+import ToDoList from './components/ToDoList';
+import {StackNavigator} from 'react-navigation';
+
+class Notes extends React.Component {
+  static navigationOptions = {
+    title: 'Notes'
+  }
+    render(){
+
+      return <View><Text>Notes</Text></View>
+    }
+}
+
+
+class Calendar extends React.Component {
+  static navigationOptions = {
+    title: 'Calendar'
+  }
+    render(){
+      return <View><Text>Calendar </Text></View>
+    }
+}
+
+const SimpleApp = StackNavigator({
+  Home: {screen: Home},
+  Todo: {screen: ToDoList},
+  Notes: {screen: Notes},
+  Calendar: {screen: Calendar}
+})
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Wohoo!!!</Text>
-        <ToDoItems />
-      </View>
+      <SimpleApp/>
     );
   }
 }
