@@ -1,137 +1,143 @@
-import React, {Component} from "react";
-//import NoteList from "./NoteList";
-//import AddNote from "./AddNote";
-//import NoteView from "./NoteView";
-import {AsyncStorage, Text, TextInput, View, StyleSheet} from 'react-native';
-//import {FormLabel, FormInput} from 'react-native-elements';
+import React from 'react';
+import {AsyncStorage, Keyboard, Text, View, TextInput, Button, StyleSheet, ListView, Dimensions} from 'react-native';
+import {Constants} from 'expo';
+console.disableYellowBox = true;
 
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
-class Notes extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state={
-      notes: [],
-      currentNote: null
+export default class ToDoItems extends React.Component {
+    constructor(props) {
+        super(props);
+        // using ListViews' DataSource to set the data for the list of todo items
+        const ds = new ListView.DataSource(
+            {rowHasChanged:(r1, r2) => r1 !== r2});
+        this.state = {
+            noteData:ds.cloneWithRows([]),
+            text: ''
+        };
+        this.handleDelete = this.handleDelete.bind(this);
+    }
+    static navigationOptions = {
+        title: 'Note List'
     };
-}
 
-save(){
-  let str = JSON.stringify(this.state.notes);
-  try {
-    AsyncStorage.setItem("notes", str)
-  } catch (error) {
-    console.log("Error in saving");
-  }
-}
-
-componentWillMount(){
-  try {
-    const value = AsyncStorage.getItem("notes");
-    if(value !== null) {
-      console.log(value);
-    }
-  } catch (error) {
-    console.log("Error loading data");
-  }
-
-}
-
-componentWillUnmount(){
-  this.save();
-}
-
-  /*  componentWillMount(){
-      let str = localStorage.getItem("notes");
-      let notes = [];
-
-      if (str !== 'undefined' && str !== null){
-        notes = JSON.parse(str);
-      }
-      this.setState({notes: notes})
+    componentDidMount() {
+        this.updateList();
     }
 
-    componentWillUnmount(){
-      let str = JSON.stringify(this.state.notes);
-      localStorage.setItem("notes", str);
+    // retrieves todoitems from asyncstorage
+    async updateList() {
+        let response = await AsyncStorage.getItem('noteData');
+        let noteData = await JSON.parse(response) || [];
+        this.setState({
+            noteData: this.state.noteData.cloneWithRows(noteData)
+        });
     }
 
-    save(){
-      let str = JSON.stringify(this.state.notes);
-      localStorage.setItem("notes", str);
-    } */
-/*
-    addNote(note){
-      this.setState({
-        notes: [...this.state.notes,note]
-      });
-      this.save();
+    // stores todoitems in asyncstorage
+    addToStorage(data) {
+        AsyncStorage.setItem('noteData', JSON.stringify(data));
     }
 
-    deleteNote(note){
-      let notes = this.state.notes.slice();
-      let index = "undefined";
-      for (let i = 0; i < notes.length; i++) {
-        if (note.title === notes[i].title) {
-          index = i;
-          break;
+    // figures out what item to remove and makes sure its removed from both the state and asyncstorage
+    handleDelete = (id) => {
+        this.setState((a) => {
+            const newItem = a.noteData._dataBlob.s1
+                .filter((item, i) => (parseInt(id) !== i));
+            this.addToStorage(newItem);
+            return {
+                todoData: this.state.noteData.cloneWithRows(newItem)
+            }
+        });
+    };
+
+    // makes sure new todoitems are added to both state and asyncstorage
+    handleAdd = ()=> {
+        if(!this.state.text) {
+            return;
         }
-      }
-      if (index !== "undefined") {
-        notes.splice(index,1);
-      }
+        const textArray = this.state.noteData._dataBlob.s1;
+        textArray.push(this.state.text);
+        this.setState(()=>({
+            noteData: this.state.noteData.cloneWithRows(textArray),
+            text: ''
+        }));
+        this.addToStorage(textArray);
+        Keyboard.dismiss();
+    };
 
-      this.setState({
-        notes: notes,
-        currentNote: null
-      });
-
-      this.save();
-
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.formView}>
+                    <TextInput
+                        style={styles.inputForm}
+                        value={this.state.text}
+                        placeholder="Write your note here..."
+                        onChangeText={(text)=> this.setState({text})}
+                        multiline={true}
+                        numberOfLiner={4}
+                    />
+                    <Button
+                        onPress={this.handleAdd}
+                        title="Add Note"
+                    />
+                </View>
+                <ListView
+                    style={styles.listView}
+                    dataSource={this.state.noteData}
+                    renderRow={(rowData, sectionID, rowID) =>{
+                        const handleDelete = () => {
+                            return this.handleDelete(rowID);
+                        };
+                        return(
+                            <View style={styles.noteItem}>
+                                <Text style={styles.noteText}>{rowData}</Text>
+                                <Button
+                                    title="Delete"
+                                    onPress={handleDelete}
+                                />
+                            </View>
+                        );
+                    }}
+                />
+            </View>
+        );
     }
-
-    selectedNote(note){
-      this.setState({
-        currentNote: note
-      });
-
-    }
-*/
-  render (){
-    return(
-      <View style={styles.container}>
-        <View style={styles.headerBar}>
-          <Text>Notes</Text>
-        </View>
-        <TextInput style={{height: 10}}
-          placeholder="testing" /> 
-    </View>
-    );
-  }
 }
+
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    backgroundColor: 'white'
-  },
-
-  flexbox1: {
-    backgroundColor: 'skyblue'
-  },
-
-  flexbox2: {
-    backgroundColor: 'red'
-  },
-
-  headerBar: {
-    backgroundColor: 'grey',
-    width: 400,
-    alignSelf: 'stretch',
-    alignContent: 'center',
-    justifyContent: 'center'
-  }
-
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: Constants.statusBarHeight,
+        backgroundColor: '#eee',
+    },
+    formView: {
+        borderBottomWidth: 1,
+        borderColor: '#ccc',
+        paddingBottom: 8,
+    },
+    inputForm: {
+        backgroundColor: '#fff',
+        width: width,
+        height: 200,
+        padding: 8,
+        marginBottom: 8,
+    },
+    noteItem: {
+        alignItems: 'center',
+        padding: 8,
+        width: width,
+        borderBottomWidth: 1.5,
+        borderColor: '#e0e0e0',
+        backgroundColor: '#fff',
+        flex: 1,
+        flexDirection: 'row',
+    },
+    noteText: {
+        flex: 1,
+    },
 });
-
-
-export default Notes;
