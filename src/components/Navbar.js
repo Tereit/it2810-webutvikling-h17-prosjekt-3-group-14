@@ -27,7 +27,7 @@ class NavComponent extends Component{
         this.setDisplay(event);
         this.menuToggle();
     }
-    
+
     menuToggle() {
         let linksEl = document.querySelector('.narrowLinks');
         if (linksEl.style.display === 'block') {
