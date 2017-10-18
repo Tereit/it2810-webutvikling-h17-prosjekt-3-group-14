@@ -5,7 +5,7 @@ export default class ToDo extends React.Component {
     render() {
         return (
             <View>
-                <Text>ToDo!!</Text>
+                <Text>Title: {this.props.item.title}</Text>
             </View>
         );
     }
