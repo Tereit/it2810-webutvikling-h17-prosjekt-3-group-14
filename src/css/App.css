@@ -22,3 +22,51 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.homeMenu {
+  height: 100vh;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.menu-icon {
+  margin: 2em;
+}
+
+.menu-icon > .fa {
+  font-size: 15em;
+  width: 280px;
+  height: 280px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50%;
+  color: white;
+}
+
+.menu-icon > .fa-calendar{
+  padding: 30px;
+  background-color: #596C68;
+}
+
+.menu-icon > .fa-sticky-note {
+  padding: 30px;
+  background-color: #95A792;
+}
+
+.menu-icon > .fa-list-ul {
+  padding: 30px;
+  background-color: #E3D9CA;
+}
+
+Calendar {
+
+}
