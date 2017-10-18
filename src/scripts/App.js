@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import '../css/App.css';
-import NavComponent from './navbar';
-import Notifications from './notifications';
+import NavComponent from './Navbar';
 import Notes from './Notes';
 import Calendar from './Calendar';
+import Notifications from './Notifications';
+import {loadEvents, loadNotifications} from './Events';
+import ToDoList from './ToDoList';
 
 class App extends Component {
     constructor() {
@@ -12,13 +14,25 @@ class App extends Component {
             displayCalendar: false,
             displayNotes: false,
             displayTodo: false,
-            displayHome: true
+            displayHome: true,
+            events: [],
+            notifications: []
         };
         this.display = this.display.bind(this);
         this.setDisplay = this.setDisplay.bind(this);
         this.displayCalendar = this.displayCalendar.bind(this);
         this.displayNotes = this.displayNotes.bind(this);
         this.displayTodo = this.displayTodo.bind(this);
+        this.updateEvents = this.updateEvents.bind(this);
+    }
+
+    componentWillMount() {
+        let events = loadEvents();
+        let notifications = loadNotifications(events);
+        this.setState({
+            events: events,
+            notifications: notifications
+        })
     }
 
     setDisplay(display) {
@@ -28,6 +42,15 @@ class App extends Component {
             displayTodo: display.displayTodo,
             displayHome: display.displayHome
         })
+    }
+
+    updateEvents() {
+        let events = loadEvents();
+        let notifications = loadNotifications(events);
+        this.setState({
+            events: events,
+            notifications: notifications
+        });
     }
 
     displayCalendar() {
@@ -66,11 +89,11 @@ class App extends Component {
                     <div className="menu-icon"><i className="fa fa-list-ul fa-5x" onClick={this.displayTodo} /></div>
                 </div>)
         } else if(this.state.displayCalendar) {
-            return <Calendar/>
+            return <Calendar events={this.state.events} update={this.updateEvents}/>
         } else if(this.state.displayNotes) {
             return <Notes/>
         } else if(this.state.displayTodo) {
-            return <div><p>Todo list will be here when done</p></div>
+            return <ToDoList />
         } else {
             return <div><p>Couldn't load requested page, something went wrong!</p></div>
         }
@@ -80,6 +103,7 @@ class App extends Component {
     return (
       <div className="App">
           <NavComponent setDisplay={this.setDisplay}/>
+          <Notifications notifications={this.state.notifications}/>
           {this.display()}
       </div>
     );

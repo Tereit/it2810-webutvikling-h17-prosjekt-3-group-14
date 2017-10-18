@@ -11,11 +11,24 @@ export function loadEvents() {
             title: inputString[i].title,
             allDay: inputString[i].allDay,
             start: start,
-            end: end
+            end: end,
+            notification: inputString[i].notification
         };
         events.push(event);
     }
     return events;
+}
+
+export function loadNotifications(events) {
+    let notifications = [];
+    for(let i = 0; i < events.length; i++) {
+        if(events[i].notification === null) {
+            continue;
+        }
+        events[i].notification.notificationDate = parseDate(events[i].notification.notificationDate);
+        notifications.push(events[i].notification);
+    }
+    return notifications;
 }
 
 function parseDate(dateinfo) {

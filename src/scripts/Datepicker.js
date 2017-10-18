@@ -18,7 +18,7 @@ class Datepicker extends Component {
             }
         });
         $(this.refs.datepicker).change(() => {
-            this.props.change($(this.refs.datepicker).datetimepicker('getDate'));
+            this.props.change($(this.refs.datepicker).datepicker('getDate'));
         });
     }
 

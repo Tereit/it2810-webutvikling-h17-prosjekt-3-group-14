@@ -8,11 +8,12 @@ class AddEventHandler extends Component {
             title: "",
             allDay: false,
             start: new Date(),
-            end: new Date()
+            end: new Date(),
+            notification: false
         };
 
         this.onTitleChange = this.onTitleChange.bind(this);
-        this.onAllDayChange = this.onAllDayChange.bind(this);
+        this.onCheckboxChange = this.onCheckboxChange.bind(this);
         this.onStartDateChange = this.onStartDateChange.bind(this);
         this.onEndDateChange = this.onEndDateChange.bind(this);
         this.onAddEvent = this.onAddEvent.bind(this);
@@ -24,9 +25,10 @@ class AddEventHandler extends Component {
         });
     }
 
-    onAllDayChange(event) {
+    onCheckboxChange(event) {
+        let name = event.target.name;
         this.setState({
-            allDay: event.target.checked
+            [name]: event.target.checked
         });
     }
 
@@ -43,7 +45,15 @@ class AddEventHandler extends Component {
     }
 
     onAddEvent() {
-        this.props.addEvent(this.state.title, this.state.allDay, this.state.start, this.state.end);
+        let notification = null;
+        if(this.state.notification) {
+            notification = {
+                notificationTitle: "Reminder!",
+                notificationMessage: this.state.title,
+                notificationDate: this.state.start
+            }
+        }
+        this.props.addEvent(this.state.title, this.state.allDay, this.state.start, this.state.end, notification);
         this.props.showCalendar();
     }
 
@@ -52,9 +62,10 @@ class AddEventHandler extends Component {
             <div className="addEventForm">
                 <form>
                     <label>Title:</label><input onChange={this.onTitleChange}/><br />
-                    <label>All day?</label><input type="checkbox" onChange={this.onAllDayChange}/><br/>
+                    <label>All day?</label><input type="checkbox" name="allDay" onChange={this.onCheckboxChange}/><br/>
+                    <label>Reminder?</label><input type="checkbox" name="notification" onChange={this.onCheckboxChange}/><br/>
                     <label>Start date:</label><Datepicker change={this.onStartDateChange} defaultValue={this.state.start}/><br/>
-                    <label>End date:</label><Datepicker change={this.onEndDateChange} defaultValue={this.state.end}/><br/>
+                    <label>End date:</label><Datepicker change={this.onStartDateChange} defaultValue={this.state.end}/><br/>
                 </form>
                 <button onClick={this.onAddEvent}>Add event</button>
                 <button onClick={this.props.showCalendar}>Close</button>

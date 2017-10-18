@@ -7,7 +7,7 @@ import moment from 'moment';
 import '../css/Calendar.css';
 
 // event handling for the calendar
-import {loadEvents, storeEvents} from './Events';
+import {loadEvents, storeEvents, loadNotifications} from './Events';
 import AddEventHandler from './AddEventHandler';
 import ShowEvent from './ShowEvent';
 
@@ -27,19 +27,11 @@ class Calendar extends Component {
 
         this.state = {
             m: moment(),
-            events: [],
             addNewEvent: false,
             showCalendar: true,
             showEvent: false,
             selectedEvent: null
         }
-    }
-
-    componentWillMount() {
-        let events = loadEvents();
-        this.setState({
-            events: events
-        });
     }
 
     openNewEventPanel() {
@@ -48,18 +40,17 @@ class Calendar extends Component {
         });
     }
 
-    addEvent(title, allDay, start, end) {
+    addEvent(title, allDay, start, end, notification) {
         const newEvent = {
             title: title,
             allDay: allDay,
             start: start,
-            end: end
+            end: end,
+            notification: notification
         };
-        let events = [...this.state.events, newEvent];
-        this.setState({
-            events: events
-        });
+        let events = [...this.props.events, newEvent];
         storeEvents(events);
+        this.props.update();
     }
 
     showNewEventHandler() {
@@ -131,7 +122,7 @@ class Calendar extends Component {
                     </div>
                     <BigCalendar
                         selectable
-                        events={this.state.events}
+                        events={this.props.events}
                         defaultDate={new Date(2017, 9, 27)}
                         onSelectEvent={event => this.showEvent(event)}
                     />
