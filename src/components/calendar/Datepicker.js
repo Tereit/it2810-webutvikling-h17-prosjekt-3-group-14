@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import 'jquery-ui-bundle';
 import 'jquery-ui-bundle/jquery-ui.css';
-import '../css/Datepicker.css';
+import '../../css/Datepicker.css';
 
 class Datepicker extends Component {
     componentDidMount() {

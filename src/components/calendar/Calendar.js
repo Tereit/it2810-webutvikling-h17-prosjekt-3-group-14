@@ -4,10 +4,10 @@ import 'moment/locale/en-gb'
 // big calendar
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-import '../css/Calendar.css';
+import '../../css/Calendar.css';
 
 // event handling for the calendar
-import {loadEvents, storeEvents, loadNotifications} from './Events';
+import {storeEvents} from './Events';
 import AddEventHandler from './AddEventHandler';
 import ShowEvent from './ShowEvent';
 
