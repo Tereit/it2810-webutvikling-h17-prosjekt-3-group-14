@@ -61,20 +61,21 @@ class ToDoList extends Component {
 
   render(){
     return(
-      <div className="container">
         <div className="todoListMain">
+          <div className="headerBar">Todo</div>
+          <div className="todoListContainer">
           <div className="header">
             <form onSubmit={this.addItem}>
               <input ref={(a) => this._inputElement = a}
                  placeholder="enter task" />
               <button type="submit">add</button>
             </form>
-            <p>To complete/delete items click on them</p>
+            <p>To complete/delete items click them</p>
           </div>
           <ToDoItems entries={this.state.items}
                      delete={this.deleteItem}/>
         </div>
-    </div>
+      </div>
     )
   }
 }
