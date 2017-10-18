@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './components/Home';
-import ToDoList from './components/ToDoList';
+import ToDoItems from './components/ToDoItems';
 import {StackNavigator} from 'react-navigation';
 
 class Notes extends React.Component {
   static navigationOptions = {
     title: 'Notes'
-  }
+  };
     render(){
 
       return <View><Text>Notes</Text></View>
@@ -18,7 +18,7 @@ class Notes extends React.Component {
 class Calendar extends React.Component {
   static navigationOptions = {
     title: 'Calendar'
-  }
+  };
     render(){
       return <View><Text>Calendar </Text></View>
     }
@@ -26,10 +26,10 @@ class Calendar extends React.Component {
 
 const SimpleApp = StackNavigator({
   Home: {screen: Home},
-  Todo: {screen: ToDoList},
+  Todo: {screen: ToDoItems},
   Notes: {screen: Notes},
   Calendar: {screen: Calendar}
-})
+});
 
 export default class App extends React.Component {
   render() {
