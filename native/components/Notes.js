@@ -1,15 +1,15 @@
 import React from 'react';
 import {AsyncStorage, Keyboard, Text, View, TextInput, Button, StyleSheet, ListView, Dimensions} from 'react-native';
 import {Constants} from 'expo';
+import {Icon} from 'native-base';
 console.disableYellowBox = true;
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-export default class ToDoItems extends React.Component {
+export default class Notes extends React.Component {
     constructor(props) {
         super(props);
-        // using ListViews' DataSource to set the data for the list of todo items
         const ds = new ListView.DataSource(
             {rowHasChanged:(r1, r2) => r1 !== r2});
         this.state = {
@@ -26,7 +26,7 @@ export default class ToDoItems extends React.Component {
         this.updateList();
     }
 
-    // retrieves todoitems from asyncstorage
+    // retrieves noteitems from asyncstorage
     async updateList() {
         let response = await AsyncStorage.getItem('noteData');
         let noteData = await JSON.parse(response) || [];
@@ -35,7 +35,7 @@ export default class ToDoItems extends React.Component {
         });
     }
 
-    // stores todoitems in asyncstorage
+    // stores noteitems in asyncstorage
     addToStorage(data) {
         AsyncStorage.setItem('noteData', JSON.stringify(data));
     }
@@ -47,12 +47,12 @@ export default class ToDoItems extends React.Component {
                 .filter((item, i) => (parseInt(id) !== i));
             this.addToStorage(newItem);
             return {
-                todoData: this.state.noteData.cloneWithRows(newItem)
+                noteData: this.state.noteData.cloneWithRows(newItem)
             }
         });
     };
 
-    // makes sure new todoitems are added to both state and asyncstorage
+    // makes sure new noteitems are added to both state and asyncstorage
     handleAdd = ()=> {
         if(!this.state.text) {
             return;
@@ -80,8 +80,10 @@ export default class ToDoItems extends React.Component {
                         numberOfLiner={4}
                     />
                     <Button
+                        color="#95A792"
                         onPress={this.handleAdd}
                         title="Add Note"
+
                     />
                 </View>
                 <ListView
@@ -94,7 +96,10 @@ export default class ToDoItems extends React.Component {
                         return(
                             <View style={styles.noteItem}>
                                 <Text style={styles.noteText}>{rowData}</Text>
-                                <Button
+                                <Icon
+                                    ios='ios-trash-outline'
+                                    android="md-trash"
+                                    style={styles.icon}
                                     title="Delete"
                                     onPress={handleDelete}
                                 />
@@ -113,11 +118,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#eee',
+        backgroundColor: '#FFFFFF',
     },
     formView: {
-        borderBottomWidth: 1,
-        borderColor: '#ccc',
         paddingBottom: 8,
     },
     inputForm: {
@@ -140,4 +143,7 @@ const styles = StyleSheet.create({
     noteText: {
         flex: 1,
     },
+    icon: {
+      fontSize: 30
+    }
 });

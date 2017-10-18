@@ -1,7 +1,11 @@
 import React from 'react';
-import {AsyncStorage, Keyboard, Text, View, TextInput, Button, StyleSheet, ListView} from 'react-native';
+import {AsyncStorage, Keyboard, Text, View, TextInput, Button, StyleSheet, ListView, Dimensions} from 'react-native';
 import {Constants} from 'expo';
+import {Icon} from 'native-base';
 console.disableYellowBox = true;
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 export default class ToDoItems extends React.Component {
     constructor(props) {
@@ -77,6 +81,7 @@ export default class ToDoItems extends React.Component {
                     <Button
                         onPress={this.handleAdd}
                         title="Add"
+                        color="#E3D9CA"
                     />
                 </View>
                 <ListView
@@ -89,7 +94,10 @@ export default class ToDoItems extends React.Component {
                         return(
                             <View style={styles.todoItem}>
                                 <Text style={styles.todoText}>{rowData}</Text>
-                                <Button
+                                <Icon
+                                    ios='ios-trash-outline'
+                                    android="md-trash"
+                                    style={styles.icon}
                                     title="Delete"
                                     onPress={handleDelete}
                                 />
@@ -108,31 +116,33 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#eee',
+        backgroundColor: '#FFFFFF',
     },
     formView: {
-        borderBottomWidth: 1,
-        borderColor: '#ccc',
         paddingBottom: 8,
     },
     inputForm: {
         backgroundColor: '#fff',
-        width: 320,
-        height: 40,
+        width: width,
+        height: 60,
         padding: 8,
         marginBottom: 8,
     },
     todoItem: {
         alignItems: 'center',
         padding: 8,
-        width: 320,
+        width: width,
         borderBottomWidth: 1.5,
         borderColor: '#e0e0e0',
         backgroundColor: '#fff',
         flex: 1,
         flexDirection: 'row',
+        justifyContent:'space-between',
     },
-    todoText: {
-        flex: 1,
+    todoData: {
+      flex: 1,
+    },
+    icon: {
+      fontSize: 25,
     },
 });
