@@ -1,15 +1,16 @@
 import React from 'react';
-import {Keyboard, Text, View, TextInput, Button, StyleSheet, ListView} from 'react-native';
+import {AsyncStorage, Keyboard, Text, View, TextInput, Button, StyleSheet, ListView} from 'react-native';
 import {Constants} from 'expo';
 console.disableYellowBox = true;
 
 export default class ToDoItems extends React.Component {
     constructor(props) {
         super(props);
+        // using ListViews' DataSource to set the data for the list of todo items
         const ds = new ListView.DataSource(
             {rowHasChanged:(r1, r2) => r1 !== r2});
         this.state = {
-            dataSource:ds.cloneWithRows([]),
+            todoData:ds.cloneWithRows([]),
             text: ''
         };
         this.handleDelete = this.handleDelete.bind(this);
@@ -18,26 +19,48 @@ export default class ToDoItems extends React.Component {
         title: 'Todo List'
     };
 
+    componentDidMount() {
+        this.updateList();
+    }
+
+    // retrieves todoitems from asyncstorage
+    async updateList() {
+        let response = await AsyncStorage.getItem('todoData');
+        let todoData = await JSON.parse(response) || [];
+        this.setState({
+            todoData: this.state.todoData.cloneWithRows(todoData)
+        });
+    }
+
+    // stores todoitems in asyncstorage
+    addToStorage(data) {
+        AsyncStorage.setItem('todoData', JSON.stringify(data));
+    }
+
+    // figures out what item to remove and makes sure its removed from both the state and asyncstorage
     handleDelete = (id) => {
         this.setState((a) => {
-            const newItem = a.dataSource._dataBlob.s1
+            const newItem = a.todoData._dataBlob.s1
                 .filter((item, i) => (parseInt(id) !== i));
+            this.addToStorage(newItem);
             return {
-                dataSource: this.state.dataSource.cloneWithRows(newItem)
+                todoData: this.state.todoData.cloneWithRows(newItem)
             }
         });
     };
 
+    // makes sure new todoitems are added to both state and asyncstorage
     handleAdd = ()=> {
         if(!this.state.text) {
             return;
         }
-        const textArray = this.state.dataSource._dataBlob.s1;
+        const textArray = this.state.todoData._dataBlob.s1;
         textArray.push(this.state.text);
         this.setState(()=>({
-            dataSource: this.state.dataSource.cloneWithRows(textArray),
+            todoData: this.state.todoData.cloneWithRows(textArray),
             text: ''
         }));
+        this.addToStorage(textArray);
         Keyboard.dismiss();
     };
 
@@ -58,7 +81,7 @@ export default class ToDoItems extends React.Component {
                 </View>
                 <ListView
                     style={styles.listView}
-                    dataSource={this.state.dataSource}
+                    dataSource={this.state.todoData}
                     renderRow={(rowData, sectionID, rowID) =>{
                         const handleDelete = () => {
                             return this.handleDelete(rowID);
