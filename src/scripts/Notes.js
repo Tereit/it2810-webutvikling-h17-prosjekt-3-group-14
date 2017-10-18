@@ -60,7 +60,8 @@ class Notes extends Component {
       }
 
       this.setState({
-        notes: notes
+        notes: notes,
+        currentNote: null
       });
 
       this.save();
@@ -76,11 +77,16 @@ class Notes extends Component {
 
   render (){
     return(
-      <div>
+      <div className="container">
+        <div className="flexbox1">
         <div className="headerBar">Notes</div>
-        <div className="addNote"><AddNote addNote = {this.addNote}/></div>
+
+      </div>
+      <div className="flexbox2">
+        <AddNote addNote = {this.addNote}/>
         <NoteList notes = {this.state.notes} delete= {this.deleteNote} selected = {this.selectedNote}/>
         <NoteView currentNote = {this.state.currentNote}/>
+      </div>
 
         {this.save()}
 
