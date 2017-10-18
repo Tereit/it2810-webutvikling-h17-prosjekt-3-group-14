@@ -20,7 +20,7 @@ class NoteList extends Component {
 
   render (){
     return(
-      <div className="flex-box1">
+      <div>
         <ul className="notesList">{this.createList()}</ul>
     </div>
     );
