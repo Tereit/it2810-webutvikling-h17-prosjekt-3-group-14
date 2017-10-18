@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ToDoItems from './ToDoItems';
-import '../css/ToDoList.css';
+import '../../css/ToDoList.css';
 
 class ToDoList extends Component {
   constructor(props, context) {
@@ -27,6 +27,7 @@ class ToDoList extends Component {
   }
 
   addItem(event){
+    // Adds items to state and localStorage
     let itemArray = this.state.items;
 
     if (this._inputElement.value !=='') {
@@ -46,6 +47,7 @@ class ToDoList extends Component {
   }
 
   deleteItem(key){
+    // Delete items from state and localStorage
     let filteredItems = this.state.items.filter(function(item){
       return (item.key !== key);
     });
@@ -56,6 +58,7 @@ class ToDoList extends Component {
   }
 
   updateLocalStorage(list){
+    // Adds the items from the state to the localStorage
     localStorage.setItem('todoList', JSON.stringify(list));
   }
 

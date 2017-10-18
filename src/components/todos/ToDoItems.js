@@ -10,20 +10,12 @@ class ToDoItems extends Component {
   }
 
   createTasks(item){
-    // return <li><input type="checkbox" onChange={(e) => this.delete(item.key, e)} />{item.text}</li>
+    // renders each item in the ToDoList
     return <li onClick={(e) => this.delete(item.key, e)} key={item.key}>{item.text}</li>
-    // return(
-    //   <li>
-    //     <input type="checkbox" className="check"/>
-    //     {item.text}
-    //     <button onClick={(e) => this.delete(item.key, e)} key={item.key}>
-    //       X
-    //     </button>
-    //   </li>
-    // )
   }
 
   delete(key){
+    // Activates the delete method when clicked on
     this.props.delete(key);
   }
 

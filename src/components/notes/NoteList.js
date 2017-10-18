@@ -17,12 +17,11 @@ class NoteList extends Component {
     this.props.delete(note.props.note);
   }
 
-
   render (){
     return(
       <div>
         <ul className="notesList">{this.createList()}</ul>
-    </div>
+      </div>
     );
   }
 }

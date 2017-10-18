@@ -101,13 +101,11 @@
 /* Delete button/Trashcan icon for deleting note*/
 .deleteButton{
   font-size: 25px;
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-end;
   padding-top: 5px;
   box-sizing: border-box;
   padding-right: 10px;
+  margin-left: auto;
+  margin-right: 10px;
 }
 
 /* Title input*/
