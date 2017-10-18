@@ -1,6 +1,7 @@
 import React from 'react';
 import {AsyncStorage, Keyboard, Text, View, TextInput, Button, StyleSheet, ListView, Dimensions} from 'react-native';
 import {Constants} from 'expo';
+import {Icon} from 'native-base';
 console.disableYellowBox = true;
 
 const width = Dimensions.get('window').width;
@@ -11,7 +12,6 @@ export default class Notes extends React.Component {
         super(props);
 
         // using ListViews' DataSource to set the data for the list of Notes
-
         const ds = new ListView.DataSource(
             {rowHasChanged:(r1, r2) => r1 !== r2});
         this.state = {
@@ -28,7 +28,9 @@ export default class Notes extends React.Component {
         this.updateList();
     }
 
+
     // retrieves notes from asyncstorage
+
     async updateList() {
         let response = await AsyncStorage.getItem('noteData');
         let noteData = await JSON.parse(response) || [];
@@ -82,8 +84,10 @@ export default class Notes extends React.Component {
                         numberOfLiner={4}
                     />
                     <Button
+                        color="#95A792"
                         onPress={this.handleAdd}
                         title="Add Note"
+
                     />
                 </View>
                 <ListView
@@ -96,7 +100,10 @@ export default class Notes extends React.Component {
                         return(
                             <View style={styles.noteItem}>
                                 <Text style={styles.noteText}>{rowData}</Text>
-                                <Button
+                                <Icon
+                                    ios='ios-trash-outline'
+                                    android="md-trash"
+                                    style={styles.icon}
                                     title="Delete"
                                     onPress={handleDelete}
                                 />
@@ -115,11 +122,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#eee',
+        backgroundColor: '#FFFFFF',
     },
     formView: {
-        borderBottomWidth: 1,
-        borderColor: '#ccc',
         paddingBottom: 8,
     },
     inputForm: {
@@ -142,4 +147,7 @@ const styles = StyleSheet.create({
     noteText: {
         flex: 1,
     },
+    icon: {
+      fontSize: 30
+    }
 });
