@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet, Dimensions, Button, TouchableOpacity, Alert} from 'react-native';
 import { Container, Header, Content, Icon } from 'native-base';
-import ToDoItems from './ToDoItems';
 
 export default class Home extends React.Component {
     static navigationOptions = {
@@ -12,21 +11,24 @@ export default class Home extends React.Component {
         return (
           <Container>
             <Content>
-              <TouchableOpacity onPress={()=> navigate('Todo')}>
+              <TouchableOpacity activeOpacity={.9} onPress={()=> navigate('Todo')}>
                 <View style={style.View}>
                   <Icon ios='ios-list' android="md-list" style={style.icon}/>
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=> navigate('Notes')}>
+                <TouchableOpacity activeOpacity={.9} onPress={()=> navigate('Notes')}>
               <View style={style.View2}>
                 <Icon ios='ios-document-outline' android="md-document" style={style.icon} />
               </View>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={()=> navigate('Calendar')}>
+              <TouchableOpacity activeOpacity={.9} onPress={()=> navigate('Calendar')}>
+
+              <View style={{backgroundColor: 'red'}}>
               <View style={style.View3}>
                 <Icon ios='ios-calendar-outline' android="md-calendar" style={style.icon} />
+              </View>
               </View>
               </TouchableOpacity>
 
@@ -68,7 +70,8 @@ const style = StyleSheet.create({
    flex: 1,
    justifyContent: 'center',
    alignItems: 'center',
-  }
+ },
+
 
 
 });
