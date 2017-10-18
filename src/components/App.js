@@ -26,6 +26,7 @@ class App extends Component {
         this.updateEvents = this.updateEvents.bind(this);
     }
 
+    // makes sure events get loaded from localstorage
     componentWillMount() {
         let events = loadEvents();
         let notifications = loadNotifications(events);
@@ -44,6 +45,7 @@ class App extends Component {
         })
     }
 
+    // retrieves events from localstorage when new events have been added by the user
     updateEvents() {
         let events = loadEvents();
         let notifications = loadNotifications(events);
@@ -80,6 +82,7 @@ class App extends Component {
         })
     }
 
+    // updates what component to display based on the components state
     display() {
         if(this.state.displayHome) {
             return (

@@ -1,3 +1,4 @@
+// loads and parses events from localstorage
 export function loadEvents() {
     let events = [];
     let inputString = JSON.parse(localStorage.getItem("events"));
@@ -19,6 +20,7 @@ export function loadEvents() {
     return events;
 }
 
+// parses notification info in events list
 export function loadNotifications(events) {
     let notifications = [];
     for(let i = 0; i < events.length; i++) {

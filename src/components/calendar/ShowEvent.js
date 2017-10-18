@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+// displays information about the selected event and gives the user the option to delete it
 class ShowEvent extends Component {
     constructor(props) {
         super(props);

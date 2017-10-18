@@ -11,6 +11,7 @@ import {storeEvents} from './Events';
 import AddEventHandler from './AddEventHandler';
 import ShowEvent from './ShowEvent';
 
+// setup date formatting for BigCalendar
 moment().format();
 moment.locale('en-gb');
 BigCalendar.momentLocalizer(moment);
@@ -40,6 +41,7 @@ class Calendar extends Component {
         });
     }
 
+    // adds event to the calendar state and to localstorage
     addEvent(title, allDay, start, end, notification) {
         const newEvent = {
             title: title,
@@ -53,6 +55,7 @@ class Calendar extends Component {
         this.props.update();
     }
 
+    // shows the component used to handle input for new event
     showNewEventHandler() {
         this.setState({
             addNewEvent: true,
@@ -61,6 +64,7 @@ class Calendar extends Component {
         });
     }
 
+    // removes an event from the calendar and from localstorage
     removeEventHandler(event) {
         let events = this.state.events.slice();
         let index = "undefined";
@@ -104,6 +108,7 @@ class Calendar extends Component {
         });
     }
 
+    // decides what component to show based on this.state
     display() {
         if(this.state.showEvent) {
             return(
