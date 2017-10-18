@@ -6,10 +6,10 @@ console.disableYellowBox = true;
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-export default class ToDoItems extends React.Component {
+export default class Notes extends React.Component {
     constructor(props) {
         super(props);
-        // using ListViews' DataSource to set the data for the list of todo items
+        // using ListViews' DataSource to set the data for the list of notes items
         const ds = new ListView.DataSource(
             {rowHasChanged:(r1, r2) => r1 !== r2});
         this.state = {
@@ -26,7 +26,7 @@ export default class ToDoItems extends React.Component {
         this.updateList();
     }
 
-    // retrieves todoitems from asyncstorage
+    // retrieves notes from asyncstorage
     async updateList() {
         let response = await AsyncStorage.getItem('noteData');
         let noteData = await JSON.parse(response) || [];
@@ -35,7 +35,7 @@ export default class ToDoItems extends React.Component {
         });
     }
 
-    // stores todoitems in asyncstorage
+    // stores notes in asyncstorage
     addToStorage(data) {
         AsyncStorage.setItem('noteData', JSON.stringify(data));
     }
@@ -47,12 +47,12 @@ export default class ToDoItems extends React.Component {
                 .filter((item, i) => (parseInt(id) !== i));
             this.addToStorage(newItem);
             return {
-                todoData: this.state.noteData.cloneWithRows(newItem)
+                noteData: this.state.noteData.cloneWithRows(newItem)
             }
         });
     };
 
-    // makes sure new todoitems are added to both state and asyncstorage
+    // makes sure new notes are added to both state and asyncstorage
     handleAdd = ()=> {
         if(!this.state.text) {
             return;
