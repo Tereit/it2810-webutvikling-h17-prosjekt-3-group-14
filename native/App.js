@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Home from './components/Home';
 import ToDoList from './components/ToDoList';
 import {StackNavigator} from 'react-navigation';
+import Calendar from './components/Calendar';
 
 class Notes extends React.Component {
   static navigationOptions = {
@@ -11,16 +12,6 @@ class Notes extends React.Component {
     render(){
 
       return <View><Text>Notes</Text></View>
-    }
-}
-
-
-class Calendar extends React.Component {
-  static navigationOptions = {
-    title: 'Calendar'
-  }
-    render(){
-      return <View><Text>Calendar </Text></View>
     }
 }
 
