@@ -5,6 +5,7 @@ import Notes from './Notes';
 import Calendar from './Calendar';
 import Notifications from './Notifications';
 import {loadEvents, loadNotifications} from './Events';
+import ToDoList from './ToDoList';
 
 class App extends Component {
     constructor() {
@@ -92,7 +93,7 @@ class App extends Component {
         } else if(this.state.displayNotes) {
             return <Notes/>
         } else if(this.state.displayTodo) {
-            return <div><p>Todo list will be here when done</p></div>
+            return <ToDoList />
         } else {
             return <div><p>Couldn't load requested page, something went wrong!</p></div>
         }
