@@ -6,6 +6,7 @@ console.disableYellowBox = true;
 export default class ToDoItems extends React.Component {
     constructor(props) {
         super(props);
+        // using ListViews' DataSource to set the data for the list of todo items
         const ds = new ListView.DataSource(
             {rowHasChanged:(r1, r2) => r1 !== r2});
         this.state = {
@@ -22,6 +23,7 @@ export default class ToDoItems extends React.Component {
         this.updateList();
     }
 
+    // retrieves todoitems from asyncstorage
     async updateList() {
         let response = await AsyncStorage.getItem('todoData');
         let todoData = await JSON.parse(response) || [];
@@ -30,20 +32,24 @@ export default class ToDoItems extends React.Component {
         });
     }
 
+    // stores todoitems in asyncstorage
     addToStorage(data) {
         AsyncStorage.setItem('todoData', JSON.stringify(data));
     }
 
+    // figures out what item to remove and makes sure its removed from both the state and asyncstorage
     handleDelete = (id) => {
         this.setState((a) => {
             const newItem = a.todoData._dataBlob.s1
                 .filter((item, i) => (parseInt(id) !== i));
+            this.addToStorage(newItem);
             return {
                 todoData: this.state.todoData.cloneWithRows(newItem)
             }
         });
     };
 
+    // makes sure new todoitems are added to both state and asyncstorage
     handleAdd = ()=> {
         if(!this.state.text) {
             return;
