@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import NoteList from "./NoteList";
-import AddNote from "./AddNote";
-import NoteView from "./NoteView";
-import {Text, View, StyleSheet} from 'react-native';
+//import NoteList from "./NoteList";
+//import AddNote from "./AddNote";
+//import NoteView from "./NoteView";
+import {AsyncStorage, Text, TextInput, View, StyleSheet} from 'react-native';
+//import {FormLabel, FormInput} from 'react-native-elements';
 
 
 class Notes extends Component {
@@ -13,13 +14,34 @@ class Notes extends Component {
       notes: [],
       currentNote: null
     };
-    this.addNote = this.addNote.bind(this);
-    this.save = this.save.bind(this);
-    this.deleteNote = this.deleteNote.bind(this);
-    this.selectedNote = this.selectedNote.bind(this);
 }
 
-    componentWillMount(){
+save(){
+  let str = JSON.stringify(this.state.notes);
+  try {
+    AsyncStorage.setItem("notes", str)
+  } catch (error) {
+    console.log("Error in saving");
+  }
+}
+
+componentWillMount(){
+  try {
+    const value = AsyncStorage.getItem("notes");
+    if(value !== null) {
+      console.log(value);
+    }
+  } catch (error) {
+    console.log("Error loading data");
+  }
+
+}
+
+componentWillUnmount(){
+  this.save();
+}
+
+  /*  componentWillMount(){
       let str = localStorage.getItem("notes");
       let notes = [];
 
@@ -37,8 +59,8 @@ class Notes extends Component {
     save(){
       let str = JSON.stringify(this.state.notes);
       localStorage.setItem("notes", str);
-    }
-
+    } */
+/*
     addNote(note){
       this.setState({
         notes: [...this.state.notes,note]
@@ -74,64 +96,42 @@ class Notes extends Component {
       });
 
     }
-
+*/
   render (){
     return(
-      <View style={container}>
-        <View style={flexbox1}>
-        <View className="headerBar">Notes</View>
-
-      </View>
-      <View style={flexbox2}>
-        <AddNote addNote = {this.addNote}/>
-        <NoteList notes = {this.state.notes} delete= {this.deleteNote} selected = {this.selectedNote}/>
-        <NoteView currentNote = {this.state.currentNote}/>
-      </View>
-
-        {this.save()}
-
-
-      </View>
+      <View style={styles.container}>
+        <View style={styles.headerBar}>
+          <Text>Notes</Text>
+        </View>
+        <TextInput style={{height: 10}}
+          placeholder="testing" /> 
+    </View>
     );
   }
-
-  const styles = StyleSheet.create({
-    container: {
-      backgroundColor: 'white'
-    }
-
-    flexbox1: {
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-    }
-
-    flexbox2: {
-      display: 'flex',
-      flex:1,
-      flexDirection: 'row',
-      minWidth: 0,
-      flexWrap: 'wrap',
-      flexGrow: 0,
-    }
-
-    headerBar: {
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'row',
-      backgroundColor: '#F7DDA6',
-      width: 100,
-      paddingBottom: 8,
-      fontSize: 32,
-      color: 'white',
-      justifyContent: 'center',
-      zIndex: 1,
-      paddingTop: 8,
-    }
-
-  });
-
-
 }
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    backgroundColor: 'white'
+  },
+
+  flexbox1: {
+    backgroundColor: 'skyblue'
+  },
+
+  flexbox2: {
+    backgroundColor: 'red'
+  },
+
+  headerBar: {
+    backgroundColor: 'grey',
+    width: 400,
+    alignSelf: 'stretch',
+    alignContent: 'center',
+    justifyContent: 'center'
+  }
+
+});
+
 
 export default Notes;

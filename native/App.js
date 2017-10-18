@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import ToDoItems from './components/ToDoItems';
+import Notes from './components/Notes';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Wohoo!!!</Text>
-        <ToDoItems />
+
+        <Notes />
       </View>
     );
   }
