@@ -40,7 +40,7 @@ class NavComponent extends Component{
             <nav>
                 <div className="navWide">
                     <div className="wideDiv">
-                        <a href="#Home" name="displayHome" onClick={(e) => this.setDisplay(e)} >Home</a>
+                        <a href="#Home" name="displayHome" onClick={(e) => this.setDisplay(e)} ><i className="fa fa-home" />Home</a>
                         <a href="#Calendar" name="displayCalendar" onClick={(e) => this.setDisplay(e)} ><i className="fa fa-calendar" /> Calendar</a>
                         <a href="#Notes" name="displayNotes" onClick={(e) => this.setDisplay(e)} ><i className="fa fa-sticky-note" /> Notes</a>
                         <a href="#Todo" name="displayTodo" onClick={(e) => this.setDisplay(e)} ><i className="fa fa-list-ul" /> Todo</a>
