@@ -3,6 +3,10 @@ import { View } from 'react-native';
 import React from 'react';
 
 export default class Example extends React.Component {
+    static navigationOptions={
+        title: 'Calendar'
+    };
+
     render() {
         return (
             <View style={{flex: 1 }}>
