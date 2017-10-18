@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import NavComponent from './Navbar';
-import Notes from './Notes';
-import Calendar from './Calendar';
+import Notes from './notes/Notes';
+import Calendar from './calendar/Calendar';
 import Notifications from './Notifications';
-import {loadEvents, loadNotifications} from './Events';
-import ToDoList from './ToDoList';
+import {loadEvents, loadNotifications} from './calendar/Events';
+import ToDoList from './todos/ToDoList';
 
 class App extends Component {
     constructor() {

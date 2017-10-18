@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import "../css/Notes.css";
+import "../../css/Notes.css";
 import NoteList from "./NoteList";
 import AddNote from "./AddNote";
 import NoteView from "./NoteView";

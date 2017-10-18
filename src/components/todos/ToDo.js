@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import "../css/ToDo.css";
+import "../../css/ToDo.css";
 import List from "./List";
 
 //Bruker funksjonalitet fra Component
