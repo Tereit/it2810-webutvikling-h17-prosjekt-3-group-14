@@ -20,7 +20,7 @@ display(){
 
   render (){
     return(
-      <div>
+      <div className="noteView">
         {this.display()}
       </div>
     );

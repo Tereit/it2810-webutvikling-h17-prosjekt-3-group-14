@@ -116,6 +116,7 @@ class Calendar extends Component {
         } else if(this.state.showCalendar) {
             return(
                 <div className="calendar">
+                  <div className="headerBarCalendar">Calendar</div>
                     <div className="menu">
                         <button onClick={this.showNewEventHandler}>New Event</button>
                     </div>
