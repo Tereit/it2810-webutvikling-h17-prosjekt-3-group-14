@@ -2,17 +2,9 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import Home from './components/Home';
 import ToDoItems from './components/ToDoItems';
-import {StackNavigator} from 'react-navigation';
+import Notes from './components/Notes';
 import Calendar from './components/Calendar';
-
-class Notes extends React.Component {
-    static navigationOptions = {
-        title: 'Notes'
-    };
-    render(){
-        return <View><Text>Notes</Text></View>
-    }
-}
+import {StackNavigator} from 'react-navigation';
 
 const SimpleApp = StackNavigator({
     Home: {screen: Home},

@@ -98,16 +98,7 @@ button.rbc-input::-moz-focus-inner {
     z-index: 4;
 }
 .rbc-today {
-    background-color: #ef8f8d;
-    height: 25%;
-    border-radius: 50%;
-    margin-left: 82%;
-    /*background: #aaa;
-    border-radius: 50%;
-    height: 60px;
-    width: 60px;
-    position: absolute;
-    float: right;*/
+    background: #eaf4ff;
 }
 .rbc-toolbar {
     display: -webkit-flex;
