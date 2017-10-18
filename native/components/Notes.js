@@ -9,7 +9,9 @@ const height = Dimensions.get('window').height;
 export default class Notes extends React.Component {
     constructor(props) {
         super(props);
+
         // using ListViews' DataSource to set the data for the list of Notes
+
         const ds = new ListView.DataSource(
             {rowHasChanged:(r1, r2) => r1 !== r2});
         this.state = {

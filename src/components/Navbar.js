@@ -9,6 +9,7 @@ class NavComponent extends Component{
         this.menuToggle = this.menuToggle.bind(this);
     }
 
+    // Setting to display only the page clicked
     setDisplay(event) {
         let name = event.target.name;
         const display = {
@@ -21,11 +22,12 @@ class NavComponent extends Component{
         this.props.setDisplay(display);
     }
 
+    // Function for switching between mobile and desktop version
     setMobileDisplay(event) {
         this.setDisplay(event);
         this.menuToggle();
     }
-
+    
     menuToggle() {
         let linksEl = document.querySelector('.narrowLinks');
         if (linksEl.style.display === 'block') {

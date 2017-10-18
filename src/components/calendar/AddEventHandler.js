@@ -44,6 +44,7 @@ class AddEventHandler extends Component {
         });
     }
 
+    // Adds an event to the calendar
     onAddEvent() {
         let notification = null;
         if(this.state.notification) {

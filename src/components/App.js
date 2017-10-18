@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import NavComponent from './Navbar';
-import Notes from './Notes';
-import Calendar from './Calendar';
+import Notes from './notes/Notes';
+import Calendar from './calendar/Calendar';
 import Notifications from './Notifications';
-import {loadEvents, loadNotifications} from './Events';
-import ToDoList from './ToDoList';
+import {loadEvents, loadNotifications} from './calendar/Events';
+import ToDoList from './todos/ToDoList';
 
 class App extends Component {
     constructor() {
@@ -26,6 +26,7 @@ class App extends Component {
         this.updateEvents = this.updateEvents.bind(this);
     }
 
+    // makes sure events get loaded from localstorage
     componentWillMount() {
         let events = loadEvents();
         let notifications = loadNotifications(events);
@@ -44,6 +45,7 @@ class App extends Component {
         })
     }
 
+    // retrieves events from localstorage when new events have been added by the user
     updateEvents() {
         let events = loadEvents();
         let notifications = loadNotifications(events);
@@ -80,6 +82,7 @@ class App extends Component {
         })
     }
 
+    // updates what component to display based on the components state
     display() {
         if(this.state.displayHome) {
             return (
