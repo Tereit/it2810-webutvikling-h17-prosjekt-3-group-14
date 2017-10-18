@@ -1,7 +1,21 @@
+.todoListMain .headerBar {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  background-color: #8de2e8;
+  width: 100%;
+  padding-bottom: 8px;
+  font-size: 32px;
+  color: white;
+  justify-content: center;
+  z-index: 1;
+  padding-top: 8px;
+}
+
 .todoListMain .header input {
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #FFF;
+  border: 1px solid #000000;
   width: 165px;
 }
 .todoListMain .header button {
