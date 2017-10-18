@@ -5,7 +5,7 @@ import { Container, Header, Content, Icon } from 'native-base';
 export default class Home extends React.Component {
     static navigationOptions = {
       title: 'Home'
-    }
+    };
     render() {
         const {navigate} = this.props.navigation;
         return (
